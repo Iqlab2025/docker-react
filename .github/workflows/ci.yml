@@ -19,8 +19,8 @@ jobs:
       with:
         node-version: 'lts/*'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Build Docker image
+      run: docker build -t iqdock/docker-react -f Dockerfile.dev .
 
-    - name: Run tests
-      run: npm test
+    - name: Run tests inside Docker container
+      run: docker run -e CI=true iqdock/docker-react npm run test
